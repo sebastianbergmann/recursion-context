@@ -83,7 +83,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
 
     /**
      * @covers       SebastianBergmann\RecursionContext\Context::add
-     * @uses         SebastianBergmann\RecursionContext\Exception
+     * @uses         SebastianBergmann\RecursionContext\InvalidArgumentException
      * @dataProvider failsProvider
      */
     public function testAddFails($value)
@@ -97,7 +97,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
 
     /**
      * @covers       SebastianBergmann\RecursionContext\Context::contains
-     * @uses         SebastianBergmann\RecursionContext\Exception
+     * @uses         SebastianBergmann\RecursionContext\InvalidArgumentException
      * @dataProvider failsProvider
      */
     public function testContainsFails($value)
