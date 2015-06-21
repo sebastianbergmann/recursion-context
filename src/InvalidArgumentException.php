@@ -11,11 +11,6 @@
 namespace SebastianBergmann\RecursionContext;
 
 /**
- * @author     Sebastian Bergmann <sebastian@phpunit.de>
- * @author     Adam Harvey <aharvey@php.net>
- * @copyright  Sebastian Bergmann <sebastian@phpunit.de>
- * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       https://github.com/sebastianbergmann/recursion-context
  */
 final class InvalidArgumentException extends \InvalidArgumentException implements Exception
 {
