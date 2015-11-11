@@ -121,7 +121,7 @@ final class Context
     private function containsArray(array &$array)
     {
         $keys = array_keys($this->arrays, $array, true);
-        $hash = '_Key_' . hash('sha512', microtime(true));
+        $hash = '_Key_' . microtime(true);
 
         foreach ($keys as $key) {
             $this->arrays[$key][$hash] = $hash;
