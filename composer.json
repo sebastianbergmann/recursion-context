@@ -18,7 +18,8 @@
         }
     ],
     "require": {
-        "php": ">=5.3.3"
+        "php": ">=5.3.3",
+	"ext-hash": ">0.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.4"
