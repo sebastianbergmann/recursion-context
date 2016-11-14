@@ -136,7 +136,7 @@ final class Context
      */
     private function containsArray(array &$array)
     {
-        $end = array_slice($array, -2);
+        $end = array_slice(array_values($array), -2);
 
         return count($end) != 2 || $end[1] !== $this->objects ? false : $end[0];
     }
