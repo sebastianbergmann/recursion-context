@@ -92,7 +92,7 @@ final class Context
             return $key;
         }
 
-        $key = count($this->arrays);
+        $key            = count($this->arrays);
         $this->arrays[] = &$array;
 
         if (!isset($array[PHP_INT_MAX]) && !isset($array[PHP_INT_MAX - 1])) {
@@ -102,11 +102,13 @@ final class Context
             do {
                 $key = random_int(PHP_INT_MIN, PHP_INT_MAX);
             } while (isset($array[$key]));
+
             $array[$key] = $key;
 
             do {
                 $key = random_int(PHP_INT_MIN, PHP_INT_MAX);
             } while (isset($array[$key]));
+
             $array[$key] = $this->objects;
         }
 
@@ -135,6 +137,7 @@ final class Context
     private function containsArray(array &$array)
     {
         $end = array_slice($array, -2);
+
         return count($end) != 2 || $end[1] !== $this->objects ? false : $end[0];
     }
 
@@ -152,9 +155,9 @@ final class Context
         return false;
     }
 
-    function __destruct()
+    public function __destruct()
     {
-        foreach($this->arrays as &$array) {
+        foreach ($this->arrays as &$array) {
             if (is_array($array)) {
                 array_pop($array);
                 array_pop($array);
