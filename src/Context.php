@@ -138,7 +138,7 @@ final class Context
     {
         $end = array_slice($array, -2);
 
-        return count($end) != 2 || $end[1] !== $this->objects ? false : $end[0];
+        return isset($end[1]) && $end[1] === $this->objects ? $end[0] : false;
     }
 
     /**
