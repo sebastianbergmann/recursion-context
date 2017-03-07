@@ -24,7 +24,7 @@ class ContextTest extends TestCase
 
     protected function setUp()
     {
-        $this->context = new Context();
+        $this->context = new Context;
     }
 
     public function failsProvider()
@@ -42,12 +42,12 @@ class ContextTest extends TestCase
 
     public function valuesProvider()
     {
-        $obj2      = new \stdClass();
+        $obj2      = new \stdClass;
         $obj2->foo = 'bar';
 
         $obj3 = (object) array(1,2,"Test\r\n",4,5,6,7,8);
 
-        $obj = new \stdClass();
+        $obj = new \stdClass;
         //@codingStandardsIgnoreStart
         $obj->null = null;
         //@codingStandardsIgnoreEnd
@@ -63,7 +63,7 @@ class ContextTest extends TestCase
         $obj->array3      = array($obj, $obj2, $obj3);
         $obj->self        = $obj;
 
-        $storage = new \SplObjectStorage();
+        $storage = new \SplObjectStorage;
         $storage->attach($obj2);
         $storage->foo = $obj2;
 
@@ -79,8 +79,6 @@ class ContextTest extends TestCase
     }
 
     /**
-     * @covers       SebastianBergmann\RecursionContext\Context::add
-     * @uses         SebastianBergmann\RecursionContext\InvalidArgumentException
      * @dataProvider failsProvider
      */
     public function testAddFails($value)
@@ -92,8 +90,6 @@ class ContextTest extends TestCase
     }
 
     /**
-     * @covers       SebastianBergmann\RecursionContext\Context::contains
-     * @uses         SebastianBergmann\RecursionContext\InvalidArgumentException
      * @dataProvider failsProvider
      */
     public function testContainsFails($value)
@@ -105,7 +101,6 @@ class ContextTest extends TestCase
     }
 
     /**
-     * @covers       SebastianBergmann\RecursionContext\Context::add
      * @dataProvider valuesProvider
      */
     public function testAdd($value, $key)
@@ -116,9 +111,16 @@ class ContextTest extends TestCase
         $this->assertEquals($key, $this->context->add($value));
     }
 
+    public function testAdd2()
+    {
+        $a = array(PHP_INT_MAX => 'foo');
+
+        $this->context->add($a);
+
+        $this->assertInternalType('int', $this->context->contains($a));
+    }
+
     /**
-     * @covers       SebastianBergmann\RecursionContext\Context::contains
-     * @uses         SebastianBergmann\RecursionContext\Context::add
      * @depends      testAdd
      * @dataProvider valuesProvider
      */
@@ -132,7 +134,6 @@ class ContextTest extends TestCase
     }
 
     /**
-     * @covers       SebastianBergmann\RecursionContext\Context::contains
      * @dataProvider valuesProvider
      */
     public function testContainsNotFound($value)

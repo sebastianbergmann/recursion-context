@@ -155,6 +155,9 @@ final class Context
         return false;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function __destruct()
     {
         foreach ($this->arrays as &$array) {
