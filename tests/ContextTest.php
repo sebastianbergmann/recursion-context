@@ -24,7 +24,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->context = new Context();
+        $this->context = new Context;
     }
 
     public function failsProvider()
@@ -42,12 +42,12 @@ class ContextTest extends PHPUnit_Framework_TestCase
 
     public function valuesProvider()
     {
-        $obj2      = new \stdClass();
+        $obj2      = new \stdClass;
         $obj2->foo = 'bar';
 
         $obj3 = (object) array(1,2,"Test\r\n",4,5,6,7,8);
 
-        $obj = new \stdClass();
+        $obj = new \stdClass;
         //@codingStandardsIgnoreStart
         $obj->null = null;
         //@codingStandardsIgnoreEnd
@@ -63,7 +63,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $obj->array3      = array($obj, $obj2, $obj3);
         $obj->self        = $obj;
 
-        $storage = new \SplObjectStorage();
+        $storage = new \SplObjectStorage;
         $storage->attach($obj2);
         $storage->foo = $obj2;
 
