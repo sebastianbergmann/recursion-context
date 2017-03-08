@@ -115,6 +115,9 @@ class ContextTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($key, $this->context->add($value));
     }
 
+    /**
+     * @requires PHP 7
+     */
     public function testAdd2()
     {
         $a = array(PHP_INT_MAX => 'foo');
