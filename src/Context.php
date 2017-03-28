@@ -136,7 +136,7 @@ final class Context
      */
     private function containsArray(array &$array)
     {
-        $end = array_slice($array, -2);
+        $end = array_slice(array_values($array), -2);
 
         return isset($end[1]) && $end[1] === $this->objects ? $end[0] : false;
     }
