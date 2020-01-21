@@ -22,12 +22,12 @@ class ContextTest extends TestCase
      */
     private $context;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->context = new Context;
     }
 
-    public function failsProvider()
+    public function failsProvider(): array
     {
         return array(
             array(true),
@@ -40,7 +40,7 @@ class ContextTest extends TestCase
         );
     }
 
-    public function valuesProvider()
+    public function valuesProvider(): array
     {
         $obj2      = new \stdClass;
         $obj2->foo = 'bar';
@@ -81,7 +81,7 @@ class ContextTest extends TestCase
     /**
      * @dataProvider failsProvider
      */
-    public function testAddFails($value)
+    public function testAddFails($value): void
     {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Only arrays and objects are supported');
@@ -92,7 +92,7 @@ class ContextTest extends TestCase
     /**
      * @dataProvider failsProvider
      */
-    public function testContainsFails($value)
+    public function testContainsFails($value): void
     {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Only arrays and objects are supported');
@@ -103,7 +103,7 @@ class ContextTest extends TestCase
     /**
      * @dataProvider valuesProvider
      */
-    public function testAdd($value, $key)
+    public function testAdd($value, $key): void
     {
         $this->assertEquals($key, $this->context->add($value));
 
@@ -111,20 +111,20 @@ class ContextTest extends TestCase
         $this->assertEquals($key, $this->context->add($value));
     }
 
-    public function testAdd2()
+    public function testAdd2(): void
     {
         $a = array(PHP_INT_MAX => 'foo');
 
         $this->context->add($a);
 
-        $this->assertInternalType('int', $this->context->contains($a));
+        $this->assertIsInt($this->context->contains($a));
     }
 
     /**
      * @depends      testAdd
      * @dataProvider valuesProvider
      */
-    public function testContainsFound($value, $key)
+    public function testContainsFound($value, $key): void
     {
         $this->context->add($value);
         $this->assertEquals($key, $this->context->contains($value));
@@ -136,7 +136,7 @@ class ContextTest extends TestCase
     /**
      * @dataProvider valuesProvider
      */
-    public function testContainsNotFound($value)
+    public function testContainsNotFound($value): void
     {
         $this->assertFalse($this->context->contains($value));
     }
