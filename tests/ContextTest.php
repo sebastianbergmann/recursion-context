@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  * This file is part of the Recursion Context package.
  *
@@ -7,7 +7,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace SebastianBergmann\RecursionContext;
 
 use PHPUnit\Framework\TestCase;
@@ -29,15 +28,15 @@ class ContextTest extends TestCase
 
     public function failsProvider(): array
     {
-        return array(
-            array(true),
-            array(false),
-            array(null),
-            array('string'),
-            array(1),
-            array(1.5),
-            array(fopen('php://memory', 'r'))
-        );
+        return [
+            [true],
+            [false],
+            [null],
+            ['string'],
+            [1],
+            [1.5],
+            [\fopen('php://memory', 'r')],
+        ];
     }
 
     public function valuesProvider(): array
@@ -45,7 +44,7 @@ class ContextTest extends TestCase
         $obj2      = new \stdClass;
         $obj2->foo = 'bar';
 
-        $obj3 = (object) array(1,2,"Test\r\n",4,5,6,7,8);
+        $obj3 = (object) [1, 2, "Test\r\n", 4, 5, 6, 7, 8];
 
         $obj = new \stdClass;
         //@codingStandardsIgnoreStart
@@ -58,24 +57,24 @@ class ContextTest extends TestCase
         $obj->text        = "this\nis\na\nvery\nvery\nvery\nvery\nvery\nvery\rlong\n\rtext";
         $obj->object      = $obj2;
         $obj->objectagain = $obj2;
-        $obj->array       = array('foo' => 'bar');
-        $obj->array2      = array(1,2,3,4,5,6);
-        $obj->array3      = array($obj, $obj2, $obj3);
+        $obj->array       = ['foo' => 'bar'];
+        $obj->array2      = [1, 2, 3, 4, 5, 6];
+        $obj->array3      = [$obj, $obj2, $obj3];
         $obj->self        = $obj;
 
         $storage = new \SplObjectStorage;
         $storage->attach($obj2);
         $storage->foo = $obj2;
 
-        return array(
-            array($obj, spl_object_hash($obj)),
-            array($obj2, spl_object_hash($obj2)),
-            array($obj3, spl_object_hash($obj3)),
-            array($storage, spl_object_hash($storage)),
-            array($obj->array, 0),
-            array($obj->array2, 0),
-            array($obj->array3, 0)
-        );
+        return [
+            [$obj, \spl_object_hash($obj)],
+            [$obj2, \spl_object_hash($obj2)],
+            [$obj3, \spl_object_hash($obj3)],
+            [$storage, \spl_object_hash($storage)],
+            [$obj->array, 0],
+            [$obj->array2, 0],
+            [$obj->array3, 0],
+        ];
     }
 
     /**
@@ -113,7 +112,7 @@ class ContextTest extends TestCase
 
     public function testAdd2(): void
     {
-        $a = array(PHP_INT_MAX => 'foo');
+        $a = [\PHP_INT_MAX => 'foo'];
 
         $this->context->add($a);
 
