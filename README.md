@@ -1,7 +1,7 @@
 # sebastian/recursion-context
 
 [![CI Status](https://github.com/sebastianbergmann/recursion-context/workflows/CI/badge.svg)](https://github.com/sebastianbergmann/recursion-context/actions)
-[![Type Coverage](https://shepherd.dev/github/sebastianbergmann/recursion-context/coverage.svg)](https://shepherd.dev/github/sebastianbergmann/phpunit)
+[![Type Coverage](https://shepherd.dev/github/sebastianbergmann/recursion-context/coverage.svg)](https://shepherd.dev/github/sebastianbergmann/recursion-context)
 
 ## Installation
 
