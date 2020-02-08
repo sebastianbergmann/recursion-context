@@ -54,7 +54,7 @@ final class Context
      *
      * @throws InvalidArgumentException Thrown if $value is not an array or object
      *
-     * @return int|string the ID of the stored value, either as a string or integer
+     * @return bool|int|string the ID of the stored value, either as a string or integer
      */
     public function add(&$value)
     {
