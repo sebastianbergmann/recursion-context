@@ -131,10 +131,8 @@ final class Context
 
     /**
      * @param object $object
-     *
-     * @return string
      */
-    private function addObject($object)
+    private function addObject($object): string
     {
         if (!$this->objects->contains($object)) {
             $this->objects->attach($object);
