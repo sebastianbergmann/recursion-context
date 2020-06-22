@@ -9,7 +9,12 @@
  */
 namespace SebastianBergmann\RecursionContext;
 
+use const PHP_INT_MAX;
+use function fopen;
+use function spl_object_hash;
 use PHPUnit\Framework\TestCase;
+use SplObjectStorage;
+use stdClass;
 
 /**
  * @covers SebastianBergmann\RecursionContext\Context
@@ -35,18 +40,18 @@ class ContextTest extends TestCase
             ['string'],
             [1],
             [1.5],
-            [\fopen('php://memory', 'r')],
+            [fopen('php://memory', 'r')],
         ];
     }
 
     public function valuesProvider(): array
     {
-        $obj2      = new \stdClass;
+        $obj2      = new stdClass;
         $obj2->foo = 'bar';
 
         $obj3 = (object) [1, 2, "Test\r\n", 4, 5, 6, 7, 8];
 
-        $obj = new \stdClass;
+        $obj = new stdClass;
         //@codingStandardsIgnoreStart
         $obj->null = null;
         //@codingStandardsIgnoreEnd
@@ -62,15 +67,15 @@ class ContextTest extends TestCase
         $obj->array3      = [$obj, $obj2, $obj3];
         $obj->self        = $obj;
 
-        $storage = new \SplObjectStorage;
+        $storage = new SplObjectStorage;
         $storage->attach($obj2);
         $storage->foo = $obj2;
 
         return [
-            [$obj, \spl_object_hash($obj)],
-            [$obj2, \spl_object_hash($obj2)],
-            [$obj3, \spl_object_hash($obj3)],
-            [$storage, \spl_object_hash($storage)],
+            [$obj, spl_object_hash($obj)],
+            [$obj2, spl_object_hash($obj2)],
+            [$obj3, spl_object_hash($obj3)],
+            [$storage, spl_object_hash($storage)],
             [$obj->array, 0],
             [$obj->array2, 0],
             [$obj->array3, 0],
@@ -112,7 +117,7 @@ class ContextTest extends TestCase
 
     public function testAdd2(): void
     {
-        $a = [\PHP_INT_MAX => 'foo'];
+        $a = [PHP_INT_MAX => 'foo'];
 
         $this->context->add($a);
 

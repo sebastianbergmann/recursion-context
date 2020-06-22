@@ -9,6 +9,17 @@
  */
 namespace SebastianBergmann\RecursionContext;
 
+use const PHP_INT_MAX;
+use const PHP_INT_MIN;
+use function array_pop;
+use function array_slice;
+use function count;
+use function is_array;
+use function is_object;
+use function random_int;
+use function spl_object_hash;
+use SplObjectStorage;
+
 /**
  * A context containing previously processed arrays and objects
  * when recursively processing a value.
@@ -21,17 +32,17 @@ final class Context
     private $arrays;
 
     /**
-     * @var \SplObjectStorage
+     * @var SplObjectStorage
      */
     private $objects;
 
     /**
-     * Initialises the context
+     * Initialises the context.
      */
     public function __construct()
     {
         $this->arrays  = [];
-        $this->objects = new \SplObjectStorage;
+        $this->objects = new SplObjectStorage;
     }
 
     /**
@@ -40,9 +51,9 @@ final class Context
     public function __destruct()
     {
         foreach ($this->arrays as &$array) {
-            if (\is_array($array)) {
-                \array_pop($array);
-                \array_pop($array);
+            if (is_array($array)) {
+                array_pop($array);
+                array_pop($array);
             }
         }
     }
@@ -58,11 +69,11 @@ final class Context
      */
     public function add(&$value)
     {
-        if (\is_array($value)) {
+        if (is_array($value)) {
             return $this->addArray($value);
         }
 
-        if (\is_object($value)) {
+        if (is_object($value)) {
             return $this->addObject($value);
         }
 
@@ -82,11 +93,11 @@ final class Context
      */
     public function contains(&$value)
     {
-        if (\is_array($value)) {
+        if (is_array($value)) {
             return $this->containsArray($value);
         }
 
-        if (\is_object($value)) {
+        if (is_object($value)) {
             return $this->containsObject($value);
         }
 
@@ -106,21 +117,21 @@ final class Context
             return $key;
         }
 
-        $key            = \count($this->arrays);
+        $key            = count($this->arrays);
         $this->arrays[] = &$array;
 
-        if (!isset($array[\PHP_INT_MAX]) && !isset($array[\PHP_INT_MAX - 1])) {
+        if (!isset($array[PHP_INT_MAX]) && !isset($array[PHP_INT_MAX - 1])) {
             $array[] = $key;
             $array[] = $this->objects;
         } else { /* cover the improbable case too */
             do {
-                $key = \random_int(\PHP_INT_MIN, \PHP_INT_MAX);
+                $key = random_int(PHP_INT_MIN, PHP_INT_MAX);
             } while (isset($array[$key]));
 
             $array[$key] = $key;
 
             do {
-                $key = \random_int(\PHP_INT_MIN, \PHP_INT_MAX);
+                $key = random_int(PHP_INT_MIN, PHP_INT_MAX);
             } while (isset($array[$key]));
 
             $array[$key] = $this->objects;
@@ -138,7 +149,7 @@ final class Context
             $this->objects->attach($object);
         }
 
-        return \spl_object_hash($object);
+        return spl_object_hash($object);
     }
 
     /**
@@ -146,7 +157,7 @@ final class Context
      */
     private function containsArray(array &$array)
     {
-        $end = \array_slice($array, -2);
+        $end = array_slice($array, -2);
 
         return isset($end[1]) && $end[1] === $this->objects ? $end[0] : false;
     }
@@ -159,7 +170,7 @@ final class Context
     private function containsObject($value)
     {
         if ($this->objects->contains($value)) {
-            return \spl_object_hash($value);
+            return spl_object_hash($value);
         }
 
         return false;
