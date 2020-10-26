@@ -9,6 +9,8 @@
  */
 namespace SebastianBergmann\RecursionContext;
 
-interface Exception
+use Throwable;
+
+interface Exception extends Throwable
 {
 }
