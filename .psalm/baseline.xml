@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.0.1@b1e2e30026936ef8d5bf6a354d1c3959b6231f44">
+<files psalm-version="4.x-dev@">
   <file src="src/Context.php">
     <RedundantConditionGivenDocblockType occurrences="1">
       <code>is_array($array)</code>
     </RedundantConditionGivenDocblockType>
+    <ReferenceConstraintViolation occurrences="2">
+      <code>return $this-&gt;addArray($value);</code>
+      <code>return $this-&gt;containsArray($value);</code>
+    </ReferenceConstraintViolation>
   </file>
 </files>
