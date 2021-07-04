@@ -18,6 +18,7 @@
         }
     ],
     "prefer-stable": true,
+    "minimum-stability": "dev",
     "config": {
         "platform": {
             "php": "8.0.0"
