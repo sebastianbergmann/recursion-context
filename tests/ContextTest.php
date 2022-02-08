@@ -10,14 +10,13 @@
 namespace SebastianBergmann\RecursionContext;
 
 use const PHP_INT_MAX;
-use function fopen;
 use function spl_object_hash;
 use PHPUnit\Framework\TestCase;
 use SplObjectStorage;
 use stdClass;
 
 /**
- * @covers SebastianBergmann\RecursionContext\Context
+ * @covers \SebastianBergmann\RecursionContext\Context
  */
 class ContextTest extends TestCase
 {
@@ -29,19 +28,6 @@ class ContextTest extends TestCase
     protected function setUp(): void
     {
         $this->context = new Context;
-    }
-
-    public function failsProvider(): array
-    {
-        return [
-            [true],
-            [false],
-            [null],
-            ['string'],
-            [1],
-            [1.5],
-            [fopen('php://memory', 'r')],
-        ];
     }
 
     public function valuesProvider(): array
@@ -80,28 +66,6 @@ class ContextTest extends TestCase
             [$obj->array2, 0],
             [$obj->array3, 0],
         ];
-    }
-
-    /**
-     * @dataProvider failsProvider
-     */
-    public function testAddFails($value): void
-    {
-        $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Only arrays and objects are supported');
-
-        $this->context->add($value);
-    }
-
-    /**
-     * @dataProvider failsProvider
-     */
-    public function testContainsFails($value): void
-    {
-        $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Only arrays and objects are supported');
-
-        $this->context->contains($value);
     }
 
     /**
