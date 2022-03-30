@@ -2,11 +2,11 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](https://keepachangelog.com/) principles.
 
-## [5.0.0] - 2021-MM-DD
+## [5.0.0] - 2022-MM-DD
 
 ### Removed
 
-* This component is no longer supported on PHP 7
+* This component is no longer supported on PHP 7.3, PHP 7.4 and PHP 8.0
 
 ## [4.0.4] - 2020-10-26
 
