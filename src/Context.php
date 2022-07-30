@@ -129,7 +129,7 @@ final class Context
         $key            = count($this->arrays);
         $this->arrays[] = &$array;
 
-        if (!array_key_exists(PHP_INT_MAX, $array) && !array_key_exists(PHP_INT_MAX-1, $array)) {
+        if (!array_key_exists(PHP_INT_MAX, $array) && !array_key_exists(PHP_INT_MAX - 1, $array)) {
             $array[] = $key;
             $array[] = $this->objects;
         } else { /* cover the improbable case too */
