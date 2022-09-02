@@ -46,7 +46,9 @@ final class Context
 
     /**
      * @psalm-template T
+     *
      * @psalm-param T $value
+     *
      * @param-out T $value
      */
     public function add(object|array &$value): int|string|false
@@ -60,7 +62,9 @@ final class Context
 
     /**
      * @psalm-template T
+     *
      * @psalm-param T $value
+     *
      * @param-out T $value
      */
     public function contains(object|array &$value): int|string|false
