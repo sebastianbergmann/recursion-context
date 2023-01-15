@@ -23,7 +23,6 @@ use SplObjectStorage;
 final class Context
 {
     private array $arrays = [];
-
     private SplObjectStorage $objects;
 
     public function __construct()
