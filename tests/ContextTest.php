@@ -89,8 +89,6 @@ final class ContextTest extends TestCase
     }
 
     /**
-     * @depends      testAdd
-     *
      * @dataProvider valuesProvider
      */
     public function testContainsFound($value, $key): void
