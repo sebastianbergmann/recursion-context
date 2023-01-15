@@ -18,7 +18,7 @@ use stdClass;
 /**
  * @covers \SebastianBergmann\RecursionContext\Context
  */
-class ContextTest extends TestCase
+final class ContextTest extends TestCase
 {
     /**
      * @var \SebastianBergmann\RecursionContext\Context
