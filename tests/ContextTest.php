@@ -20,10 +20,7 @@ use stdClass;
 #[CoversClass(Context::class)]
 final class ContextTest extends TestCase
 {
-    /**
-     * @var \SebastianBergmann\RecursionContext\Context
-     */
-    private $context;
+    private Context $context;
 
     public static function valuesProvider(): array
     {
