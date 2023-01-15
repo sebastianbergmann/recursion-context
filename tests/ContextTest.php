@@ -11,13 +11,13 @@ namespace SebastianBergmann\RecursionContext;
 
 use const PHP_INT_MAX;
 use function spl_object_hash;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use SplObjectStorage;
 use stdClass;
 
-/**
- * @covers \SebastianBergmann\RecursionContext\Context
- */
+#[CoversClass(Context::class)]
 final class ContextTest extends TestCase
 {
     /**
@@ -68,9 +68,7 @@ final class ContextTest extends TestCase
         $this->context = new Context;
     }
 
-    /**
-     * @dataProvider valuesProvider
-     */
+    #[DataProvider('valuesProvider')]
     public function testAdd($value, $key): void
     {
         $this->assertEquals($key, $this->context->add($value));
@@ -88,9 +86,7 @@ final class ContextTest extends TestCase
         $this->assertIsInt($this->context->contains($a));
     }
 
-    /**
-     * @dataProvider valuesProvider
-     */
+    #[DataProvider('valuesProvider')]
     public function testContainsFound($value, $key): void
     {
         $this->context->add($value);
@@ -100,9 +96,7 @@ final class ContextTest extends TestCase
         $this->assertEquals($key, $this->context->contains($value));
     }
 
-    /**
-     * @dataProvider valuesProvider
-     */
+    #[DataProvider('valuesProvider')]
     public function testContainsNotFound($value): void
     {
         $this->assertFalse($this->context->contains($value));
