@@ -25,12 +25,7 @@ final class ContextTest extends TestCase
      */
     private $context;
 
-    protected function setUp(): void
-    {
-        $this->context = new Context;
-    }
-
-    public function valuesProvider(): array
+    public static function valuesProvider(): array
     {
         $obj2      = new stdClass;
         $obj2->foo = 'bar';
@@ -66,6 +61,11 @@ final class ContextTest extends TestCase
             [$obj->array2, 0],
             [$obj->array3, 0],
         ];
+    }
+
+    protected function setUp(): void
+    {
+        $this->context = new Context;
     }
 
     /**
