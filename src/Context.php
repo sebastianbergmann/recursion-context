@@ -89,11 +89,13 @@ final class Context
         if (!array_key_exists(PHP_INT_MAX, $array) && !array_key_exists(PHP_INT_MAX - 1, $array)) {
             $array[] = $key;
             $array[] = $this->objects;
-        } else { /* cover the improbable case too */
-            /* Note that array_slice (used in containsArray) will return the
-             * last two values added *not necessarily* the highest integer
-             * keys in the array, so the order of these writes to $array
-             * is important, but the actual keys used is not. */
+        } else {
+            /* Cover the improbable case, too.
+             *
+             * Note that array_slice() (used in containsArray()) will return the
+             * last two values added, *not necessarily* the highest integer keys
+             * in the array. Therefore, the order of these writes to $array is
+             * important, but the actual keys used is not. */
             do {
                 /** @noinspection PhpUnhandledExceptionInspection */
                 $key = random_int(PHP_INT_MIN, PHP_INT_MAX);
