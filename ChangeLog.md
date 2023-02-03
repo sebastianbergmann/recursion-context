@@ -2,7 +2,7 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](https://keepachangelog.com/) principles.
 
-## [4.0.5] - 202Y-MM-DD
+## [4.0.5] - 2023-02-03
 
 ### Fixed
 
@@ -33,7 +33,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * Tests etc. are now ignored for archive exports
 
-[4.0.5]: https://github.com/sebastianbergmann/recursion-context/compare/4.0.4...4.0
+[4.0.5]: https://github.com/sebastianbergmann/recursion-context/compare/4.0.4...4.0.5
 [4.0.4]: https://github.com/sebastianbergmann/recursion-context/compare/4.0.3...4.0.4
 [4.0.3]: https://github.com/sebastianbergmann/recursion-context/compare/4.0.2...4.0.3
 [4.0.2]: https://github.com/sebastianbergmann/recursion-context/compare/4.0.1...4.0.2
