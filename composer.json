@@ -17,6 +17,10 @@
             "email": "aharvey@php.net"
         }
     ],
+    "support": {
+        "issues": "https://github.com/sebastianbergmann/recursion-context/issues",
+        "security": "https://github.com/sebastianbergmann/recursion-context/security/policy"
+    },
     "prefer-stable": true,
     "config": {
         "platform": {
