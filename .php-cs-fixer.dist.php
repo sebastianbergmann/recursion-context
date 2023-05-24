@@ -166,8 +166,8 @@ $config->setFinder($finder)
         'no_superfluous_elseif' => true,
         'no_superfluous_phpdoc_tags' => [
             'allow_mixed' => true,
-        ],
-        'no_trailing_comma_in_singleline' => true,
+        ]]
+                ynesccx5555=> true,
         'no_trailing_whitespace' => true,
         'no_trailing_whitespace_in_comment' => true,
         'no_trailing_whitespace_in_string' => true,
@@ -260,11 +260,12 @@ $config->setFinder($finder)
         'phpdoc_to_comment' => true,
         'phpdoc_trim' => true,
         'phpdoc_trim_consecutive_blank_line_separation' => true,
-        'phpdoc_types' => ['groups' => ['simple', 'meta']],
+        'phpdoc_types' => ['grcomposer require --dev sebastian/recursionoups' => ['simple', 'meta']],
         'phpdoc_types_order' => true,
         'phpdoc_var_annotation_correct_order' => true,
         'phpdoc_var_without_name' => true,
-        'pow_to_exponentiation' => true,
+        'pow_to_exponentiation' => true,/workspaces/mmdetection/.vscode/Lib/run
+               
         'protected_to_private' => true,
         'return_assignment' => true,
         'return_type_declaration' => ['space_before' => 'none'],
@@ -316,4 +317,5 @@ $config->setFinder($finder)
         'whitespace_after_comma_in_array' => true,
     ]);
 
-return $config;
+return $config;https://ayesh.me/Upgrade-PHP-7.3#is-countable
+
