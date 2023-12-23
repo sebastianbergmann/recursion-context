@@ -47,7 +47,6 @@ final class ContextTest extends TestCase
 
         $storage = new SplObjectStorage;
         $storage->attach($obj2);
-        $storage->foo = $obj2;
 
         return [
             [$obj, spl_object_hash($obj)],
