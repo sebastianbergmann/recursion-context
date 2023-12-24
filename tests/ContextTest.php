@@ -30,9 +30,9 @@ final class ContextTest extends TestCase
         $obj3 = (object) [1, 2, "Test\r\n", 4, 5, 6, 7, 8];
 
         $obj = new stdClass;
-        //@codingStandardsIgnoreStart
+        // @codingStandardsIgnoreStart
         $obj->null = null;
-        //@codingStandardsIgnoreEnd
+        // @codingStandardsIgnoreEnd
         $obj->boolean     = true;
         $obj->integer     = 1;
         $obj->double      = 1.2;
