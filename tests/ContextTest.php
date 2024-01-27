@@ -67,10 +67,10 @@ final class ContextTest extends TestCase
     #[DataProvider('valuesProvider')]
     public function testAdd($value, $key): void
     {
-        $this->assertEquals($key, $this->context->add($value));
+        $this->assertSame($key, $this->context->add($value));
 
         // Test we get the same key on subsequent adds
-        $this->assertEquals($key, $this->context->add($value));
+        $this->assertSame($key, $this->context->add($value));
     }
 
     public function testAdd2(): void
@@ -86,10 +86,10 @@ final class ContextTest extends TestCase
     public function testContainsFound($value, $key): void
     {
         $this->context->add($value);
-        $this->assertEquals($key, $this->context->contains($value));
+        $this->assertSame($key, $this->context->contains($value));
 
         // Test we get the same key on subsequent calls
-        $this->assertEquals($key, $this->context->contains($value));
+        $this->assertSame($key, $this->context->contains($value));
     }
 
     #[DataProvider('valuesProvider')]
