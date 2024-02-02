@@ -45,7 +45,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * Tests etc. are now ignored for archive exports
 
-[6.0.0]: https://github.com/sebastianbergmann/recursion-context/compare/5.0...main
+[6.0.0]: https://github.com/sebastianbergmann/recursion-context/compare/5.0...6.0.0
 [5.0.0]: https://github.com/sebastianbergmann/recursion-context/compare/4.0.5...5.0.0
 [4.0.5]: https://github.com/sebastianbergmann/recursion-context/compare/4.0.4...4.0.5
 [4.0.4]: https://github.com/sebastianbergmann/recursion-context/compare/4.0.3...4.0.4
