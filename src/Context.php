@@ -17,7 +17,7 @@ use function array_slice;
 use function count;
 use function is_array;
 use function random_int;
-use function spl_object_hash;
+use function spl_object_id;
 use SplObjectStorage;
 
 final class Context
@@ -114,13 +114,13 @@ final class Context
         return $key;
     }
 
-    private function addObject(object $object): string
+    private function addObject(object $object): int
     {
         if (!$this->objects->contains($object)) {
             $this->objects->attach($object);
         }
 
-        return spl_object_hash($object);
+        return spl_object_id($object);
     }
 
     private function containsArray(array $array): false|int
@@ -130,10 +130,10 @@ final class Context
         return isset($end[1]) && $end[1] === $this->objects ? $end[0] : false;
     }
 
-    private function containsObject(object $value): false|string
+    private function containsObject(object $value): false|int
     {
         if ($this->objects->contains($value)) {
-            return spl_object_hash($value);
+            return spl_object_id($value);
         }
 
         return false;
