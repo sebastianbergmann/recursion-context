@@ -10,7 +10,7 @@
 namespace SebastianBergmann\RecursionContext;
 
 use const PHP_INT_MAX;
-use function spl_object_hash;
+use function spl_object_id;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -49,10 +49,10 @@ final class ContextTest extends TestCase
         $storage->attach($obj2);
 
         return [
-            [$obj, spl_object_hash($obj)],
-            [$obj2, spl_object_hash($obj2)],
-            [$obj3, spl_object_hash($obj3)],
-            [$storage, spl_object_hash($storage)],
+            [$obj, spl_object_id($obj)],
+            [$obj2, spl_object_id($obj2)],
+            [$obj3, spl_object_id($obj3)],
+            [$storage, spl_object_id($storage)],
             [$obj->array, 0],
             [$obj->array2, 0],
             [$obj->array3, 0],
