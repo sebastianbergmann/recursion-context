@@ -13,11 +13,13 @@ use const PHP_INT_MAX;
 use function spl_object_id;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\TestCase;
 use SplObjectStorage;
 use stdClass;
 
 #[CoversClass(Context::class)]
+#[Small]
 final class ContextTest extends TestCase
 {
     private Context $context;
