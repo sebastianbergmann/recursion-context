@@ -44,9 +44,9 @@ final class Context
     }
 
     /**
-     * @psalm-template T of object|array
+     * @template T of object|array
      *
-     * @psalm-param T $value
+     * @param T $value
      *
      * @param-out T $value
      */
@@ -60,9 +60,9 @@ final class Context
     }
 
     /**
-     * @psalm-template T of object|array
+     * @template T of object|array
      *
-     * @psalm-param T $value
+     * @param T $value
      *
      * @param-out T $value
      */
