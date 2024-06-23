@@ -22,8 +22,9 @@ use stdClass;
 #[Small]
 final class ContextTest extends TestCase
 {
-    private Context $context;
-
+    /**
+     * @return non-empty-list<array{0: array<mixed>|object, 1: int}>
+     */
     public static function valuesProvider(): array
     {
         $obj2      = new stdClass;
@@ -61,42 +62,55 @@ final class ContextTest extends TestCase
         ];
     }
 
-    protected function setUp(): void
-    {
-        $this->context = new Context;
-    }
-
+    /**
+     * @param array<mixed>|object $value
+     */
     #[DataProvider('valuesProvider')]
-    public function testAdd($value, $key): void
+    public function testAdd(array|object $value, int $key): void
     {
-        $this->assertSame($key, $this->context->add($value));
+        $context = new Context;
+
+        $this->assertSame($key, $context->add($value));
 
         // Test we get the same key on subsequent adds
-        $this->assertSame($key, $this->context->add($value));
+        $this->assertSame($key, $context->add($value));
     }
 
     public function testAdd2(): void
     {
+        $context = new Context;
+
         $a = [PHP_INT_MAX => 'foo'];
 
-        $this->context->add($a);
+        $context->add($a);
 
-        $this->assertIsInt($this->context->contains($a));
+        $this->assertIsInt($context->contains($a));
     }
 
+    /**
+     * @param array<mixed>|object $value
+     */
     #[DataProvider('valuesProvider')]
-    public function testContainsFound($value, $key): void
+    public function testContainsFound(array|object $value, int $key): void
     {
-        $this->context->add($value);
-        $this->assertSame($key, $this->context->contains($value));
+        $context = new Context;
+
+        $context->add($value);
+
+        $this->assertSame($key, $context->contains($value));
 
         // Test we get the same key on subsequent calls
-        $this->assertSame($key, $this->context->contains($value));
+        $this->assertSame($key, $context->contains($value));
     }
 
+    /**
+     * @param array<mixed>|object $value
+     */
     #[DataProvider('valuesProvider')]
-    public function testContainsNotFound($value): void
+    public function testContainsNotFound(array|object $value): void
     {
-        $this->assertFalse($this->context->contains($value));
+        $context = new Context;
+
+        $this->assertFalse($context->contains($value));
     }
 }

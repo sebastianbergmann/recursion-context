@@ -22,7 +22,14 @@ use SplObjectStorage;
 
 final class Context
 {
+    /**
+     * @var list<array<mixed>>
+     */
     private array $arrays = [];
+
+    /**
+     * @var SplObjectStorage<object, null>
+     */
     private SplObjectStorage $objects;
 
     public function __construct()
@@ -75,6 +82,9 @@ final class Context
         return $this->containsObject($value);
     }
 
+    /**
+     * @param array<mixed> $array
+     */
     private function addArray(array &$array): int
     {
         $key = $this->containsArray($array);
@@ -123,6 +133,9 @@ final class Context
         return spl_object_id($object);
     }
 
+    /**
+     * @param array<mixed> $array
+     */
     private function containsArray(array $array): false|int
     {
         $end = array_slice($array, -2);
