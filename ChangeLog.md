@@ -2,6 +2,12 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](https://keepachangelog.com/) principles.
 
+## [6.0.2] - 2024-07-03
+
+### Changed
+
+* This project now uses PHPStan instead of Psalm for static analysis
+
 ## [6.0.1] - 2024-06-17
 
 ### Changed
@@ -51,6 +57,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * Tests etc. are now ignored for archive exports
 
+[6.0.2]: https://github.com/sebastianbergmann/recursion-context/compare/6.0.1...6.0.2
 [6.0.1]: https://github.com/sebastianbergmann/recursion-context/compare/6.0.0...6.0.1
 [6.0.0]: https://github.com/sebastianbergmann/recursion-context/compare/5.0...6.0.0
 [5.0.0]: https://github.com/sebastianbergmann/recursion-context/compare/4.0.5...5.0.0
