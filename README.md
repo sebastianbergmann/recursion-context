@@ -1,4 +1,4 @@
-[![Latest Stable Version](https://poser.pugx.org/sebastian/recursion-context/v/stable.png)](https://packagist.org/packages/sebastian/recursion-context)
+[![Latest Stable Version](https://poser.pugx.org/sebastian/recursion-context/v)](https://packagist.org/packages/sebastian/recursion-context)
 [![CI Status](https://github.com/sebastianbergmann/recursion-context/workflows/CI/badge.svg)](https://github.com/sebastianbergmann/recursion-context/actions)
 [![codecov](https://codecov.io/gh/sebastianbergmann/recursion-context/branch/main/graph/badge.svg)](https://codecov.io/gh/sebastianbergmann/recursion-context)
 
