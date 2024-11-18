@@ -16,6 +16,7 @@ use function array_pop;
 use function array_slice;
 use function count;
 use function is_array;
+use function is_int;
 use function random_int;
 use function spl_object_id;
 use SplObjectStorage;
@@ -43,6 +44,7 @@ final class Context
     public function __destruct()
     {
         foreach ($this->arrays as &$array) {
+            /* @phpstan-ignore function.alreadyNarrowedType */
             if (is_array($array)) {
                 array_pop($array);
                 array_pop($array);
@@ -57,9 +59,10 @@ final class Context
      *
      * @param-out T $value
      */
-    public function add(array|object &$value): false|int|string
+    public function add(array|object &$value): int
     {
         if (is_array($value)) {
+            /* @phpstan-ignore paramOut.type */
             return $this->addArray($value);
         }
 
@@ -73,7 +76,7 @@ final class Context
      *
      * @param-out T $value
      */
-    public function contains(array|object &$value): false|int|string
+    public function contains(array|object &$value): false|int
     {
         if (is_array($value)) {
             return $this->containsArray($value);
@@ -140,7 +143,13 @@ final class Context
     {
         $end = array_slice($array, -2);
 
-        return isset($end[1]) && $end[1] === $this->objects ? $end[0] : false;
+        if (isset($end[1]) &&
+            $end[1] === $this->objects &&
+            is_int($end[0])) {
+            return $end[0];
+        }
+
+        return false;
     }
 
     private function containsObject(object $value): false|int
