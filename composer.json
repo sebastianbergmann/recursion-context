@@ -21,7 +21,6 @@
         "issues": "https://github.com/sebastianbergmann/recursion-context/issues",
         "security": "https://github.com/sebastianbergmann/recursion-context/security/policy"
     },
-    "minimum-stability": "dev",
     "prefer-stable": true,
     "config": {
         "platform": {
@@ -34,7 +33,7 @@
         "php": ">=8.3"
     },
     "require-dev": {
-        "phpunit/phpunit": "^12.0-dev"
+        "phpunit/phpunit": "^12.0"
     },
     "autoload": {
         "classmap": [
