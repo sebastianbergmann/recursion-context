@@ -44,7 +44,6 @@ final class Context
     public function __destruct()
     {
         foreach ($this->arrays as &$array) {
-            /* @phpstan-ignore function.alreadyNarrowedType */
             if (is_array($array)) {
                 array_pop($array);
                 array_pop($array);
