@@ -144,6 +144,7 @@ final class Context
 
         if (isset($end[1]) &&
             $end[1] === $this->objects &&
+            isset($end[0]) &&
             is_int($end[0])) {
             return $end[0];
         }
