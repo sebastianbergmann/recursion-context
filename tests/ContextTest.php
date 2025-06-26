@@ -107,7 +107,7 @@ final class ContextTest extends TestCase
      * @param array<mixed>|object $value
      */
     #[DataProvider('valuesProvider')]
-    public function testContainsNotFound(array|object $value): void
+    public function testContainsNotFound(array|object $value, int $key): void
     {
         $context = new Context;
 
