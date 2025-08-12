@@ -128,8 +128,8 @@ final class Context
 
     private function addObject(object $object): int
     {
-        if (!$this->objects->contains($object)) {
-            $this->objects->attach($object);
+        if (!$this->objects->offsetExists($object)) {
+            $this->objects->offsetSet($object);
         }
 
         return spl_object_id($object);
@@ -154,7 +154,7 @@ final class Context
 
     private function containsObject(object $value): false|int
     {
-        if ($this->objects->contains($value)) {
+        if ($this->objects->offsetExists($value)) {
             return spl_object_id($value);
         }
 
