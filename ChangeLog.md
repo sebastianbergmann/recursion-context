@@ -8,6 +8,12 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * This component is no longer supported on PHP 8.2
 
+## [6.0.3] - 2025-08-13
+
+### Changed
+
+* Do not use `SplObjectStorage` methods that will be deprecated in PHP 8.5
+
 ## [6.0.2] - 2024-07-03
 
 ### Changed
@@ -25,6 +31,12 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 ### Removed
 
 * This component is no longer supported on PHP 8.1
+
+## [5.0.1] - 2025-08-10
+
+### Changed
+
+* Do not use `SplObjectStorage` methods that will be deprecated in PHP 8.5
 
 ## [5.0.0] - 2023-02-03
 
@@ -64,9 +76,11 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 * Tests etc. are now ignored for archive exports
 
 [7.0.0]: https://github.com/sebastianbergmann/recursion-context/compare/6.0...7.0.0
+[6.0.3]: https://github.com/sebastianbergmann/recursion-context/compare/6.0.2...6.0.3
 [6.0.2]: https://github.com/sebastianbergmann/recursion-context/compare/6.0.1...6.0.2
 [6.0.1]: https://github.com/sebastianbergmann/recursion-context/compare/6.0.0...6.0.1
 [6.0.0]: https://github.com/sebastianbergmann/recursion-context/compare/5.0...6.0.0
+[5.0.1]: https://github.com/sebastianbergmann/recursion-context/compare/5.0.0...5.0.1
 [5.0.0]: https://github.com/sebastianbergmann/recursion-context/compare/4.0.5...5.0.0
 [4.0.5]: https://github.com/sebastianbergmann/recursion-context/compare/4.0.4...4.0.5
 [4.0.4]: https://github.com/sebastianbergmann/recursion-context/compare/4.0.3...4.0.4
