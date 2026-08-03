@@ -10,6 +10,7 @@
 namespace SebastianBergmann\RecursionContext;
 
 use const PHP_INT_MAX;
+use function count;
 use function spl_object_id;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -49,7 +50,7 @@ final class ContextTest extends TestCase
         $obj->self        = $obj;
 
         $storage = new SplObjectStorage;
-        $storage->attach($obj2);
+        $storage->offsetSet($obj2);
 
         return [
             [$obj, spl_object_id($obj)],
@@ -59,6 +60,19 @@ final class ContextTest extends TestCase
             [$obj->array, 0],
             [$obj->array2, 0],
             [$obj->array3, 0],
+        ];
+    }
+
+    /**
+     * @return non-empty-array<string, array{0: array<mixed>}>
+     */
+    public static function arraysProvider(): array
+    {
+        return [
+            'empty'                 => [[]],
+            'list'                  => [[1, 2, 3]],
+            'string keys'           => [['foo' => 'bar']],
+            'cannot be appended to' => [[PHP_INT_MAX => 'foo']],
         ];
     }
 
@@ -76,15 +90,151 @@ final class ContextTest extends TestCase
         $this->assertSame($key, $context->add($value));
     }
 
-    public function testAdd2(): void
+    public function testAddWorksForArrayThatCannotBeAppendedTo(): void
     {
         $context = new Context;
 
         $a = [PHP_INT_MAX => 'foo'];
 
+        $key = $context->add($a);
+
+        /* The key returned by add() must be the key that identifies the array
+         * from then on: contains() as well as subsequent calls to add() have to
+         * report the very same key. */
+        $this->assertSame($key, $context->contains($a));
+        $this->assertSame($key, $context->add($a));
+    }
+
+    public function testEmptyArrayCanBeAdded(): void
+    {
+        $context = new Context;
+
+        $a = [];
+
+        $this->assertFalse($context->contains($a));
+        $this->assertSame(0, $context->add($a));
+        $this->assertSame(0, $context->contains($a));
+    }
+
+    public function testArrayWithHolesCanBeAdded(): void
+    {
+        $context = new Context;
+
+        $a = [0 => 'a', 1 => 'b', 2 => 'c'];
+
+        unset($a[0], $a[2]);
+
+        $this->assertSame(0, $context->add($a));
+        $this->assertSame(0, $context->contains($a));
+    }
+
+    public function testSelfReferencingArrayCanBeAdded(): void
+    {
+        $context = new Context;
+
+        $a      = [];
+        $a['a'] = &$a;
+
+        $this->assertSame(0, $context->add($a));
+        $this->assertSame(0, $context->contains($a));
+    }
+
+    public function testDistinctArraysAreAssignedDistinctKeys(): void
+    {
+        $context = new Context;
+
+        $a = ['a'];
+        $b = ['b'];
+        $c = ['c'];
+
+        $this->assertSame(0, $context->add($a));
+        $this->assertSame(1, $context->add($b));
+        $this->assertSame(2, $context->add($c));
+
+        $this->assertSame(0, $context->contains($a));
+        $this->assertSame(1, $context->contains($b));
+        $this->assertSame(2, $context->contains($c));
+    }
+
+    public function testDistinctObjectsAreAssignedDistinctKeys(): void
+    {
+        $context = new Context;
+
+        $a = new stdClass;
+        $b = new stdClass;
+
+        $this->assertNotSame($context->add($a), $context->add($b));
+    }
+
+    public function testArrayAddedToOneContextIsNotContainedInAnotherContext(): void
+    {
+        $first  = new Context;
+        $second = new Context;
+
+        $a = ['a'];
+
+        $first->add($a);
+
+        $this->assertSame(0, $first->contains($a));
+        $this->assertFalse($second->contains($a));
+    }
+
+    public function testObjectAddedToOneContextIsNotContainedInAnotherContext(): void
+    {
+        $first  = new Context;
+        $second = new Context;
+
+        $o = new stdClass;
+
+        $first->add($o);
+
+        $this->assertSame(spl_object_id($o), $first->contains($o));
+        $this->assertFalse($second->contains($o));
+    }
+
+    public function testArrayThatOnlyLooksLikeItHasBeenAddedIsNotContained(): void
+    {
+        $context = new Context;
+
+        /* An array cannot be mistaken for one that was added to the context
+         * just because its last elements happen to have the shape that is used
+         * to mark arrays that were added. */
+        $a = [0, new SplObjectStorage];
+
+        $this->assertFalse($context->contains($a));
+    }
+
+    public function testAddingAnArrayTwiceMarksItOnlyOnce(): void
+    {
+        $context = new Context;
+
+        $a = ['a', 'b'];
+
         $context->add($a);
 
-        $this->assertIsInt($context->contains($a));
+        $numberOfElements = count($a);
+
+        $context->add($a);
+
+        $this->assertCount($numberOfElements, $a);
+    }
+
+    /**
+     * @param array<mixed> $value
+     */
+    #[DataProvider('arraysProvider')]
+    public function testArrayIsRestoredWhenContextIsDestroyed(array $value): void
+    {
+        $original = $value;
+
+        $context = new Context;
+        $context->add($value);
+
+        $this->assertNotSame($original, $value);
+
+        unset($context);
+
+        $this->assertSame($original, $value);
     }
 
     /**

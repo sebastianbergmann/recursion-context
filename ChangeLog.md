@@ -2,6 +2,16 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](https://keepachangelog.com/) principles.
 
+## [8.0.1] - 2026-08-03
+
+### Changed
+
+* `Context::contains()` no longer has to look at more than one element of an array to recognise it; for arrays whose internal hash table has gaps, for instance because elements were removed using `unset()`, this used to take time proportional to the size of the array
+
+### Fixed
+
+* `Context::add()` returned a key that neither `Context::contains()` nor a subsequent `Context::add()` would report for arrays that already have an element with the largest possible integer key
+
 ## [8.0.0] - 2026-02-06
 
 ### Removed
@@ -87,6 +97,7 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * Tests etc. are now ignored for archive exports
 
+[8.0.1]: https://github.com/sebastianbergmann/recursion-context/compare/8.0.0...8.0.1
 [8.0.0]: https://github.com/sebastianbergmann/recursion-context/compare/7.0...8.0.0
 [7.0.1]: https://github.com/sebastianbergmann/recursion-context/compare/7.0.0...7.0.1
 [7.0.0]: https://github.com/sebastianbergmann/recursion-context/compare/6.0...7.0.0

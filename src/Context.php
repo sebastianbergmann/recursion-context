@@ -12,11 +12,10 @@ namespace SebastianBergmann\RecursionContext;
 use const PHP_INT_MAX;
 use const PHP_INT_MIN;
 use function array_key_exists;
+use function array_key_last;
 use function array_pop;
-use function array_slice;
 use function count;
 use function is_array;
-use function is_int;
 use function random_int;
 use function spl_object_id;
 use SplObjectStorage;
@@ -44,8 +43,7 @@ final class Context
     public function __destruct()
     {
         foreach ($this->arrays as &$array) {
-            if (is_array($array)) {
-                array_pop($array);
+            if (is_array($array) && $this->containsArray($array) !== false) {
                 array_pop($array);
             }
         }
@@ -97,30 +95,24 @@ final class Context
 
         $key            = count($this->arrays);
         $this->arrays[] = &$array;
+        $marker         = new Marker($this->objects, $key);
 
-        if (!array_key_exists(PHP_INT_MAX, $array) && !array_key_exists(PHP_INT_MAX - 1, $array)) {
-            $array[] = $key;
-            $array[] = $this->objects;
+        if (!array_key_exists(PHP_INT_MAX, $array)) {
+            $array[] = $marker;
         } else {
-            /* Cover the improbable case, too.
+            /* Cover the improbable case, too: an element cannot be appended to
+             * an array that already has an element with the largest possible
+             * integer key.
              *
-             * Note that array_slice() (used in containsArray()) will return the
-             * last two values added, *not necessarily* the highest integer keys
-             * in the array. Therefore, the order of these writes to $array is
-             * important, but the actual keys used is not. */
+             * Note that containsArray() looks at the last element of the array,
+             * which is the element written below regardless of the key used for
+             * it. Therefore, the actual key is not important. */
             do {
                 /** @noinspection PhpUnhandledExceptionInspection */
-                $key = random_int(PHP_INT_MIN, PHP_INT_MAX);
-            } while (array_key_exists($key, $array));
+                $markerKey = random_int(PHP_INT_MIN, PHP_INT_MAX);
+            } while (array_key_exists($markerKey, $array));
 
-            $array[$key] = $key;
-
-            do {
-                /** @noinspection PhpUnhandledExceptionInspection */
-                $key = random_int(PHP_INT_MIN, PHP_INT_MAX);
-            } while (array_key_exists($key, $array));
-
-            $array[$key] = $this->objects;
+            $array[$markerKey] = $marker;
         }
 
         return $key;
@@ -128,9 +120,7 @@ final class Context
 
     private function addObject(object $object): int
     {
-        if (!$this->objects->offsetExists($object)) {
-            $this->objects->offsetSet($object);
-        }
+        $this->objects->offsetSet($object);
 
         return spl_object_id($object);
     }
@@ -140,13 +130,16 @@ final class Context
      */
     private function containsArray(array $array): false|int
     {
-        $end = array_slice($array, -2);
+        $key = array_key_last($array);
 
-        if (isset($end[1]) &&
-            $end[1] === $this->objects &&
-            isset($end[0]) &&
-            is_int($end[0])) {
-            return $end[0];
+        if ($key === null) {
+            return false;
+        }
+
+        $last = $array[$key];
+
+        if ($last instanceof Marker && $last->owner === $this->objects) {
+            return $last->key;
         }
 
         return false;
