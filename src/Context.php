@@ -162,7 +162,7 @@ final class Context
             $this->objects->offsetSet($object);
         }
 
-        return spl_object_hash($object);
+        return @spl_object_hash($object);
     }
 
     /**
@@ -183,7 +183,7 @@ final class Context
     private function containsObject($value)
     {
         if ($this->objects->offsetExists($value)) {
-            return spl_object_hash($value);
+            return @spl_object_hash($value);
         }
 
         return false;
