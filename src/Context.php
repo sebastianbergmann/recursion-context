@@ -120,7 +120,7 @@ final class Context
             $this->objects->offsetSet($object);
         }
 
-        return spl_object_hash($object);
+        return @spl_object_hash($object);
     }
 
     private function containsArray(array $array): false|int
@@ -133,7 +133,7 @@ final class Context
     private function containsObject(object $value): false|string
     {
         if ($this->objects->offsetExists($value)) {
-            return spl_object_hash($value);
+            return @spl_object_hash($value);
         }
 
         return false;
