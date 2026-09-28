@@ -84,10 +84,13 @@ final class ContextTest extends TestCase
     {
         $context = new Context;
 
-        $this->assertSame($key, $context->add($value));
+        $first = $context->add($value);
 
         // Test we get the same key on subsequent adds
-        $this->assertSame($key, $context->add($value));
+        $second = $context->add($value);
+
+        $this->assertSame($key, $first);
+        $this->assertSame($key, $second);
     }
 
     public function testAddWorksForArrayThatCannotBeAppendedTo(): void
@@ -247,10 +250,13 @@ final class ContextTest extends TestCase
 
         $context->add($value);
 
-        $this->assertSame($key, $context->contains($value));
+        $first = $context->contains($value);
 
         // Test we get the same key on subsequent calls
-        $this->assertSame($key, $context->contains($value));
+        $second = $context->contains($value);
+
+        $this->assertSame($key, $first);
+        $this->assertSame($key, $second);
     }
 
     /**
